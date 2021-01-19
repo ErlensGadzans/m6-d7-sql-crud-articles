@@ -60,8 +60,8 @@ class articlesModel {
   }
 
   async findByIdAndUpdate(id, value) {
-    if (!id) {
-      const error = new Error("There is no article with this id."); //i dont know why, but error is not working
+    if (!id || Object.values(id) !== id) {
+      const error = new Error("There is no article with this id."); //i still dont know how to wtite if there is not correct id requested
       res.send(error);
     } else {
       const entries = Object.entries(value);
