@@ -58,6 +58,21 @@ class articlesModel {
       return response;
     }
   }
+
+  async findByIdAndUpdate(id, value) {
+    if (!id) {
+      const error = new Error("There is no article with this id."); //i dont know why, but error is not working
+      res.send(error);
+    } else {
+      const entries = Object.entries(value);
+
+      const query = `UPDATE ${this.article} SET ${entries
+        .map(([key, value]) => `${key}='${value}'`)
+        .join(",")} WHERE id=${parseInt(id)};`;
+      const response = await this.run(query);
+      return response;
+    }
+  }
 }
 
 module.exports = articlesModel;

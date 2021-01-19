@@ -38,4 +38,17 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
+router.put("/:id", async (req, res, next) => {
+  try {
+    const editedArticle = await articlesModel.findByIdAndUpdate(
+      req.params.id,
+      req.body
+    );
+    res.send(editedArticle);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = router;
