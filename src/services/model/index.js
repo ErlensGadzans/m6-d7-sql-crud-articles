@@ -47,6 +47,17 @@ class articlesModel {
       return response;
     }
   }
+
+  async findByIdAndDelete(id) {
+    if (!id) {
+      const error = new Error("Thereis no object with this id.");
+      res.send(error);
+    } else {
+      const query = `DELETE FROM ${this.article} WHERE id=${parseInt(id)}`;
+      const response = await this.run(query);
+      return response;
+    }
+  }
 }
 
 module.exports = articlesModel;

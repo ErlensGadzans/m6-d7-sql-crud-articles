@@ -28,4 +28,14 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const deleteArticle = await articlesModel.findByIdAndDelete(req.params.id);
+    res.send(deleteArticle);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = router;
