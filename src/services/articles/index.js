@@ -65,4 +65,19 @@ router.get("/withAuthors", async (req, res, next) => {
   }
 });
 
+router.get("/withAuthorsAndCategories", async (req, res, next) => {
+  try {
+    // find articles joined with authors and categories
+    const query = `SELECT a.headline,a.content, a.category,a.subhead, authors.name, authors.img, categories."categoryName"
+    FROM articles AS a INNER JOIN authors ON a.authorid=authors.id 
+     INNER JOIN categories ON a."categoryId"=categories.id`;
+
+    const articlesAndAuthorsAndCategories = await database.query(query);
+    res.send(articlesAndAuthorsAndCategories.rows);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = router;
