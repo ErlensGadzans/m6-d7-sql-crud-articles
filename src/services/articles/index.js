@@ -51,4 +51,18 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
+router.get("/withAuthors", async (req, res, next) => {
+  try {
+    // find articles joined with authors and categories
+    const query = `SELECT a.headline,a.content, a.category, authors.name, authors.img 
+    FROM articles AS a INNER JOIN authors ON a.authorid=authors.id`;
+
+    const articlesAndAuthors = await database.query(query);
+    res.send(articlesAndAuthors.rows);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = router;

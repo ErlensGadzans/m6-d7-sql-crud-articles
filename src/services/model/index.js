@@ -3,7 +3,7 @@ const database = require("../database");
 
 class articlesModel {
   constructor(article) {
-    this.article = article; //dont understand this part. WHY NAME?
+    this.article = article;
   }
 
   async run(query) {
@@ -61,8 +61,7 @@ class articlesModel {
 
   async findByIdAndUpdate(id, value) {
     if (!id || Object.values(id) !== id) {
-      const error = new Error("There is no article with this id."); //i still dont know how to wtite if there is not correct id requested
-      res.send(error);
+      throw new Error("There is no article with this id."); //i still dont know how to wtite if there is not correct id requested
     } else {
       const entries = Object.entries(value);
 
